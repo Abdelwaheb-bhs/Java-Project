@@ -1,0 +1,112 @@
+ //private int a;
+public Employe(){
+    super();
+    this.situation="actif";
+    this.fonction="";
+    this.salaire=0;
+    this.date_dembauche=new Date();
+}
+public Employe(String fonction,double salaire,int a,Date date_dembauche,int cin,String nom,String prenom,Date d){
+    super(nom,prenom,cin,d);
+    this.a=a;
+    this.situation=situation();
+    this.fonction=fonction;
+    this.salaire = salaire;
+    this.date_dembauche=date_dembauche;
+}
+public String situation(){
+    String h;
+    if(ancianite()<4)
+    h="contractuelle";
+    else
+    h="titulaire";
+    return h;}
+
+public int ancianite(){
+    return a-date_dembauche.getYear();
+}
+// public double salaire(Date ancianite){
+//    /if (ancianite.getYear()>5)
+//     return salaire*1.25;
+// }
+
+
+public void affiche(){
+    System.out.println(super.toString()+""+a+""+salaire+""+date_dembauche.toString()+situation);
+}
+public void setSituation(String situation){
+    this.situation=situation;
+}
+public String getSituation(){
+    return this.situation;
+}
+public void setsalaire(double salaire){
+    this.salaire=salaire;
+
+}
+public double getsalaire(){
+    return this.salaire;
+}
+public void setdate_dembauche(Date date_dembauche){
+    this.date_dembauche=date_dembauche;
+}
+public Date getdate_dembauche(){
+    return this.date_dembauche;
+    }
+public void seta(int a){
+    this.a=a;
+    }
+public int geta(){
+    return this.a;
+
+} 
+wehd ekher
+  private String fonction ;
+    private double salaire ;
+    private Date date_dembauche;
+    private String situation;
+public Employe(){
+    super();
+    fonction="";
+    date_dembauche=new Date();
+    situation="";
+    salaire=0;
+   }
+   public Employe(String fonction,double salaire ,Date date_dembauche,String situation,String nom,String prenom,int cin,Date d){
+    super( nom, prenom, cin, d);
+    this.fonction=fonction;
+    this.date_dembauche=date_dembauche;
+    this.situation=situation;
+    this.salaire=salaire;
+
+
+    
+
+   }
+public void affiche(){
+    super.affiche();
+    System.out.println("la fonction est :"+fonction+"la salire est :"+salaire+"le date dembauche est :"+date_dembauche.toString()+"la situation est :"+situation);
+}
+public String toString(){
+
+    return super.toString()+"employer [la fonction est :"+fonction+"la salire est :"+salaire+"le date dembauche est :"+date_dembauche.toString()+"la situation est :"+situation+"]";
+}
+public int ancianite(Date date_act){
+    return date_act.getYear()-date_dembauche.getYear();
+}
+public String situation(){
+    int a=ancianite(date_dembauche);
+    String h;
+    if(a<4)
+    h="contractuelle";
+    else
+    h="titulaire";
+    return h;}
+public Date getdate_dembauche(){
+    return date_dembauche;
+}
+public void setdate_dembauche(Date date_dembauche ){
+    this.date_dembauche=date_dembauche;
+
+}
+   

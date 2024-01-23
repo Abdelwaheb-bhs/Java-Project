@@ -1,0 +1,247 @@
+package pack;
+
+
+
+public class Employe extends Personne{
+    private String fonction ;
+    private Date date_dembauche;
+    private String situation;
+    private double salaire;
+    private Date dateact;
+
+
+public Employe(){
+    super();
+    fonction="";
+    date_dembauche=new Date();
+    situation="";
+    salaire=0;
+    dateact=new Date();
+    }
+public Employe(String fonction,Date date_dembauche,double salaire,String nom,String prenom,int cin,Date date_nissance){
+    super(nom,prenom,cin,date_nissance);
+    this.fonction = fonction;
+    this.date_dembauche = date_dembauche;
+    this.salaire = salaire;
+}
+public Employe(String fonction,Date date_dembauche,String situation,double salaire,String nom,String prenom,int cin,Date date_nissance ){
+    super(nom,prenom,cin,date_nissance);
+    this.fonction = fonction;
+    this.date_dembauche = date_dembauche;
+    this.situation = situation;
+    this.salaire = salaire;
+
+} 
+public Employe(String fonction,Date date_dembauche,String situation,double salaire,Personne p ){
+    super();
+    nom=p.nom;
+    prenom=p.prenom;
+    this.date_nissance=p.date_nissance;
+    this.fonction = fonction;
+    this.date_dembauche = date_dembauche;
+    this.situation = situation;
+    this.salaire = salaire;
+}
+    public Employe(String fonction,Date date_dembauche,double salaire,Personne p ){
+    super();
+    nom=p.nom;
+    prenom=p.prenom;
+    cin=p.cin;
+    this.date_nissance=p.date_nissance;
+    this.fonction = fonction;
+    this.date_dembauche = date_dembauche;
+    this.salaire = salaire;
+
+}
+public Employe(String fonction,Date dateact,Date date_dembauche,double salaire,Personne p ){
+    super();
+    nom=p.nom;
+    prenom=p.prenom;
+    cin=p.cin;
+    this.date_nissance=p.date_nissance;
+    this.fonction = fonction;
+    this.date_dembauche = date_dembauche;
+    this.salaire = salaire;
+    this.dateact=dateact;
+
+}
+
+
+  
+public void affiche(){
+     super.affiche();
+     System.out.println("Fonction : "+fonction+"\nDate de debut d'embauche :"+date_dembauche+"\n situation :"+situation+"\n salaire : "+salaire);
+ }
+ public String toString(){
+      return "Employé "+super.toString()+" Fonction :"+fonction+" date dembauche "+date_dembauche+" situation "+situation+" salaire "+salaire;
+
+ }
+// public int ancianite(){
+//      return 2023-date_dembauche.getYear();
+//  }
+ private static int joursDansMois(int mois, int annee) {
+    switch (mois) {
+        case 1, 3, 5, 7, 8, 10, 12:
+            return 31;
+        case 4, 6, 9, 11:
+            return 30;
+        case 2:
+            return (estAnneeBissextile(annee)) ? 29 : 28;
+        default:
+            throw new IllegalArgumentException("Mois invalide : " + mois);
+    }
+}
+private static boolean estAnneeBissextile(int annee) {
+    return (annee % 4 == 0 && annee % 100 != 0) || (annee % 400 == 0);
+}
+// Fonction pour calculer l'ancienneté entre deux dates
+    public  int calculerAnciennete() {
+        // Étape 1: Différence en années
+        int diffAnnees = dateact.getYear() - date_dembauche.getYear();
+
+        // Étape 2: Différence en mois
+        int diffMois = dateact.getMonth() - date_dembauche.getMonth();
+
+        // Étape 3: Différence en jours
+        int diffJours = dateact.getDay() - date_dembauche.getDay();
+
+        // Étape 4: Ajustement en fonction des jours
+        if (diffJours < 0) {
+            diffMois = diffMois - 1;
+            diffJours = joursDansMois(date_dembauche.getMonth(), date_dembauche.getYear()) - date_dembauche.getDay() + dateact.getDay();
+        }
+
+        // Ajustement en fonction des mois
+        if (diffMois < 0) {
+            diffAnnees = diffAnnees - 1;
+            diffMois = 12 + diffMois;
+        }
+
+        // Affichage ou utilisation de l'ancienneté
+        // System.out.println("Ancienneté en années: " + diffAnnees);
+        // System.out.println("Ancienneté en mois: " + diffMois);
+        // System.out.println("Ancienneté en jours: " + diffJours);
+        return diffAnnees;
+    }
+
+
+
+public String getSituation(){
+    return situation;
+}
+  public String Situation(){
+    
+    if (calculerAnciennete()>4 ){
+          situation="titulaire";
+         }else {
+              situation="cont";
+      }
+    return situation;
+ }
+public void setSituation(String situation){
+    this.situation=situation;
+}
+public double getSalaire(){
+    return salaire;
+}
+public void setSalaire(double salaire){
+    this.salaire=salaire;
+}
+public Date getDate_dembauche(){
+    return date_dembauche;
+}
+public void setDate_dembauche(int day,int month,int year){
+    date_dembauche.setDay(day);
+    date_dembauche.setMonth(month);
+    date_dembauche.setYear(year);
+}
+// public double salaire(){
+    
+//     if (ancianite()>5){
+//         return salaire*1.25;
+//         }else{
+//             return salaire;
+//     }
+// }
+}
+
+
+
+
+
+Compte courant
+
+public void retrait(double montant) {
+    if (this.solde >= montant + fraisDepassement() && montant <= 500) {
+        super.retrait(montant);
+        // Mise à jour des frais de dépassement
+        fraisDepassement();
+        } else {
+            System.out.println("Impossible de retirer cette somme");
+            }}
+
+
+package pack;
+
+public class Compte_courant extends Compte {
+    
+    private double plafond=Employe.getSalaire();
+    private double fraisDepassementMensuels =0;
+    private double fraisBancairesTrimestriels = 20;
+public Compte_courant(){
+    super();
+    
+}
+public Compte_courant(Employe titulaire,int numero_compte,Agence_bancaire agence,Date date){
+    super(titulaire, numero_compte, agence,date);
+    
+}
+public Compte_courant(Personne titulaire,int numero_compte,Agence_bancaire agence,Date date){
+    super(titulaire, numero_compte, agence,date);
+   }
+
+public void setPlaf_depasse(double plafond){
+    this.plafond=plafond;
+}
+public void versement(double montant) {
+    super.versement(montant);
+  
+}
+public void versement() {
+    super.versement(Employe.getSalaire());
+   
+public void retrait(double montant) {
+    super.retrait(montant);
+    // if (montant <= solde ) {
+    //     solde -= montant;
+    //     System.out.println("Retrait de " + montant + " DT effectué.");
+        // Mise à jour des frais de dépassement
+     
+    // } else {
+    //     System.out.println("Solde insuffisant.");
+    // }
+}
+
+}
+public void fraisDepassementMensuels(){
+    solde=solde-fraisDepassementMensuels;
+}
+
+
+public void affiche() {
+    super.affiche();
+    System.out.println("Autorisation de dépassement: " + plafond);
+    System.out.println("Frais de dépassement mensuels: " + fraisDepassementMensuels);
+    System.out.println("Frais bancaires trimestriels: " + fraisBancairesTrimestriels);
+}
+public String toString(){
+    return ("\nCompte Courant"+"Autorisation de dépassement: " + plafond+"\nFrais de dépassement mensuels: " + fraisDepassementMensuels+"\nFrais bancaires trimestriels: " + fraisBancairesTrimestriels+"\n"+super.toString());
+}
+}
+
+
+
+
+
+   
+
